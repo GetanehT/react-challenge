@@ -1,41 +1,34 @@
 import React, { Component } from 'react';
 import css from "./css/NavBarForm.module.css";
+import NavBarChild from './NavBarChild';
 
-
-export class NavBarForm extends Component {
-    constructor(props) {
-      super(props)
+class NavBarForm extends Component {
+  constructor(props) {
+    super(props);
     
-      this.state = {
-         isLoggedin: true,
-      }
-    }
-    clickHandler() {
-        console.log("log in")
-    }
+    this.state = {
+      isLoggedin: true,
+    };
+  }
+  
+  clickHandler = () => {
+    this.setState((prevState) => ({
+      isLoggedin: !prevState.isLoggedin, // Toggle login state
+    }), () => console.log(this.state.isLoggedin));
+  }
+  
   render() { 
     return (
-      <div ><h1 className = {css.NavBar}>Galleryx</h1>
-      <button onClick={this.clickHandler}>log in</button>
-
-
-      {this.state.isLoggedin ?  ( 
-          <form>
-           <label htmlfor = "username">username:</label>
-           <input placeholder='username' id="username" />
-
-           <label htmlfor = "password">password::</label>
-           <input placeholder='password' id="password" />
-
-           <button onClick={this.clickHandler}>Submit</button>
-            </form>
-      ) : ( <p>please sign in</p>
-
-      ) }
-   
+      <div className={css.NavBar}>
+        <h1>Gallery</h1>
+      
+        <NavBarChild
+          isLoggedin={this.state.isLoggedin} 
+          clickHandler={this.clickHandler}
+        />
       </div>
-    )
+    );
   }
 }
 
-export default NavBarForm
+export default NavBarForm;
